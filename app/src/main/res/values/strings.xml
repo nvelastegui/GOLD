@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">GOLD</string>
+    <string name="search">Search</string>
+    <string name="loading_dots">...</string>
+    <string name="save_song">Save</string>
+
+    <string name="success_savedSong">Song has been saved to your history.</string>
+
+    <string name="error_loadingLyricsActivity">This item could not be loaded.</string>
+    <string name="error_launchingLyrics">This song could not be loaded.</string>
+    <string name="error_savingSong">This song could not be saved.</string>
+
+    <string name="clientKey">put your client key here</string>
+
+</resources>
