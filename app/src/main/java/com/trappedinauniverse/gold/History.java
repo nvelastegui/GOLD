@@ -1,6 +1,7 @@
 package com.trappedinauniverse.gold;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -16,6 +17,7 @@ public class History extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_history);
+        getIntent(); // Trigger 'first' Intent get so onNewIntent() is called for ea widget button
 
         Realm db = Realm.getDefaultInstance();
 
@@ -25,6 +27,16 @@ public class History extends Activity {
 
         Log.d("debug", "results: " + results.toString());
 
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        finishAffinity();
+        Intent pushToMain = new Intent(this, Main.class);
+        pushToMain.setAction(intent.getAction());
+        pushToMain.putExtras(intent.getExtras());
+        startActivity(pushToMain);
     }
 
 

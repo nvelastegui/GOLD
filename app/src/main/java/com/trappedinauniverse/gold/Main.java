@@ -58,6 +58,51 @@ public class Main extends Activity {
             }
         });
 
+        // If called with Intent, act accordingly.
+        String action = getIntent().getAction();
+        Bundle extras = getIntent().getExtras();
+        Log.d("debug", "action: " + action);
+        if (action != null) { // action is null if not specified beforehand.
+            doAction(action, extras);
+        }
+
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        String action = intent.getAction();
+        Bundle extras = intent.getExtras();
+        Log.d("debug", "on new Intent with action: " + action);
+        if (action != null) doAction(action, extras);
+    }
+
+    /**
+     * Runs the specified action. Called from onCreate() if there's an intent
+     * or if the intent changes.
+     * @param action String specifying action to perform.
+     */
+    private void doAction (String action, Bundle extras) {
+        String artist = extras.getString("artist");
+        String title = extras.getString("title");
+        switch (action) {
+            case "search-artist":
+                Log.d("debug", "Case: search artist");
+                searchBox.setText(artist);
+                doSearch(null);
+                break;
+            case "view-lyrics":
+                Log.d("debug", "Case: view lyrics");
+                searchBox.setText(title);
+                doSearch(null);
+                break;
+            case "save-song":
+                Log.d("debug", "Case: save song");
+                break;
+            default:
+                Log.d("debug", "Case: default");
+                break;
+        }
     }
 
     /**

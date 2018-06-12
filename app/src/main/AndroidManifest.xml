@@ -11,11 +11,10 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true">
-
         <activity
             android:name=".Main"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:launchMode="singleTop">
+            android:launchMode="singleTask"
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -26,15 +25,37 @@
         <activity
             android:name=".History"
             android:parentActivityName=".Main"
-            android:theme="@style/AppTheme" >
-        </activity>
+            android:theme="@style/AppTheme" />
 
         <activity
             android:name=".Lyrics"
-            android:theme="@style/AppTheme"
-            android:label="@string/loading_dots" >
-        </activity>
+            android:label="@string/loading_dots"
+            android:theme="@style/AppTheme" />
 
+        <receiver android:name=".CurrentSong">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+
+                <!-- For Music Playing -->
+                <action android:name="com.android.music.musicservicecommand"/>
+                <action android:name="com.android.music.metachanged" />
+                <action android:name="com.android.music.playstatechanged" />
+                <action android:name="com.android.music.updateprogress" />
+                <action android:name="com.spotify.music.playbackstatechanged"/>
+                <action android:name="com.spotify.music.metadatachanged"/>
+                <action android:name="com.spotify.music.queuechanged"/>
+                <!--// Set IntentFilters for music.-->
+                <!--IntentFilter intentFilter = new IntentFilter();-->
+                <!--intentFilter.addAction("com.android.music.musicservicecommand");-->
+                <!--intentFilter.addAction("com.android.music.metachanged");-->
+                <!--intentFilter.addAction("com.android.music.playstatechanged");-->
+                <!--intentFilter.addAction("com.android.music.updateprogress");-->
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/current_song_info" />
+        </receiver>
     </application>
 
 </manifest>

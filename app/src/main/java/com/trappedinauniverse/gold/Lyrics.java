@@ -38,6 +38,7 @@ public class Lyrics extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lyrics);
         getActionBar().setDisplayHomeAsUpEnabled(true);
+        getIntent(); // Trigger 'first' Intent get so onNewIntent() is called for ea widget button
 
         // Get the data from the calling activity. If empty, quit activity.
         try {
@@ -64,6 +65,16 @@ public class Lyrics extends Activity {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_lyrics, menu);
         return true;
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        finishAffinity();
+        Intent pushToMain = new Intent(this, Main.class);
+        pushToMain.setAction(intent.getAction());
+        pushToMain.putExtras(intent.getExtras());
+        startActivity(pushToMain);
     }
 
     /**
